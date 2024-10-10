@@ -253,10 +253,12 @@ def receive_data():
     email = request.form["email"]
     phone = request.form["phone"]
     message = request.form["message"]
+    my_mail = os.environ['MAIL']
+    my_pass = os.environ['PASS']
     with SMTP("smtp.gmail.com") as conn:
         conn.starttls()
-        conn.login(user="concord.blast@gmail.com", password="acea ykib tigc eems")
-        conn.sendmail(from_addr="concord.blast@gmail.com", to_addrs="concord.blast@gmail.com",
+        conn.login(user=my_mail, password=my_pass)
+        conn.sendmail(from_addr=my_mail, to_addrs=my_mail,
                       msg=f"Subject: {name} wanna talk to you!\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message} ")
     flash(f"Thank you {name} for contacting !")
     return redirect(url_for('get_all_posts'))
